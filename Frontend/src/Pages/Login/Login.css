@@ -33,13 +33,15 @@
 
 .login-form input {
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #1e1d1d;
   outline: none;
+  border-radius: 5px;
 }
 
 .login-form button {
   padding: 12px;
   border: none;
+  border-radius: 5px;
   background-color: #1d4ed8;
   color: white;
   cursor: pointer;
@@ -48,4 +50,10 @@
 
 .login-form p {
   font-size: 14px;
+  text-align: center;
+  
+}
+
+.login-form a {
+  color: #d81d5b;
 }

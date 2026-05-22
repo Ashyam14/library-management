@@ -40,6 +40,28 @@ export default function BorrowedBooks() {
         return days > 0 ? days * 10 : 0
     }
 
+    const handleReturn = async (borrow) => {
+        try {
+            const user = localStorage.getItem('username')
+            await API.post('/return_book/', {
+                Title: borrow.Title,
+                UserId: borrow.UserId || user,
+                Quantity: borrow.Quantity || 1
+            })
+
+            setBorrows(prev =>
+                prev.map(book =>
+                    book.Title === borrow.Title && book.UserId === borrow.UserId
+                        ? { ...book, Status: 'Returned' }
+                        : book
+                )
+            )
+
+        } catch (err) {
+            console.error(err.response?.data || err)
+        }
+    }
+
     return (
         <>
             <Navbar />
@@ -59,17 +81,27 @@ export default function BorrowedBooks() {
                                 <th>Due Date</th>
                                 <th>Status</th>
                                 <th>Fine</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {borrows.map(b => (
-                                <tr key={b.Id}>
+                                <tr key={`${b.Title}-${b.UserId}-${b.Due_Date}`}> 
                                     <td>{b.Title}</td>
                                     <td>{b.Quantity}</td>
                                     <td>{b.Borrow_Date ? new Date(b.Borrow_Date).toLocaleDateString() : '-'}</td>
                                     <td>{b.Due_Date ? new Date(b.Due_Date).toLocaleDateString() : '-'}</td>
                                     <td>{b.Status}</td>
                                     <td>{calculateFine(b.Due_Date, b.Returned) > 0 ? `₹${calculateFine(b.Due_Date, b.Returned)}` : 'No Fine'}</td>
+                                    <td>
+                                        <button
+                                            className={`edit-btn ${b.Status === 'Returned' ? 'disabled-btn' : ''}`}
+                                            onClick={() => handleReturn(b)}
+                                            disabled={b.Status === 'Returned'}
+                                        >
+                                            {b.Status === 'Returned' ? 'Returned' : 'Return'}
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

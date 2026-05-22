@@ -71,6 +71,8 @@ export default function Adminhome() {
     const [quantity, setQuantity] = useState(1)
     const [bookImage, setBookImage] = useState(null)
     const [bookImages, setBookImages] = useState({})
+    const [editMode, setEditMode] = useState(false)
+    const [editOriginalTitle, setEditOriginalTitle] = useState('')
 
     // USER INPUT STATES
     const [newUserName, setNewUserName] = useState('')
@@ -130,11 +132,7 @@ export default function Adminhome() {
 
         fetchBooks()
 
-        // CLEAR INPUTS
-        setNewBookTitle('')
-        setNewBookAuthor('')
-        setQuantity(1)
-        setBookImage(null)
+        resetBookForm()
 
     }
 
@@ -154,6 +152,64 @@ export default function Adminhome() {
         }
     }
 }
+
+    const updateBook = async () => {
+
+    if (!editOriginalTitle) {
+        return
+    }
+
+    if (!newBookTitle || !newBookAuthor) {
+        alert('Please enter book details')
+        return
+    }
+
+    try {
+        const bookData = {
+            Title: newBookTitle,
+            Author: newBookAuthor,
+            Quantity: quantity,
+            Image: bookImage
+        }
+
+        await API.put(
+            `/book_update/${encodeURIComponent(editOriginalTitle)}`,
+            bookData
+        )
+
+        alert('Book Updated Successfully')
+
+        fetchBooks()
+        resetBookForm()
+
+    } catch (error) {
+        console.log(error)
+        if (error.response) {
+            alert(JSON.stringify(error.response.data))
+        } else {
+            alert('Update Failed')
+        }
+    }
+}
+
+    const resetBookForm = () => {
+        setEditMode(false)
+        setEditOriginalTitle('')
+        setNewBookTitle('')
+        setNewBookAuthor('')
+        setQuantity(1)
+        setBookImage(null)
+    }
+
+    const handleEditBook = (book) => {
+        setEditMode(true)
+        setEditOriginalTitle(book.Title)
+        setNewBookTitle(book.Title)
+        setNewBookAuthor(book.Author)
+        setQuantity(book.Quantity || 1)
+        setBookImage(book.Image || book.image || null)
+        setSelectedSection('books')
+    }
 
     // DELETE BOOK
     const deleteBook = async (title) => {
@@ -394,9 +450,20 @@ export default function Adminhome() {
                         </div>
                     )}
 
-                    <button onClick={addBook}>
-                        Add Book
+                    <button onClick={editMode ? updateBook : addBook}>
+                        {editMode ? 'Update Book' : 'Add Book'}
                     </button>
+
+                    {editMode && (
+                        <button
+                            type="button"
+                            className="cancel-btn"
+                            onClick={resetBookForm}
+                            style={{ marginLeft: '12px' }}
+                        >
+                            Cancel
+                        </button>
+                    )}
 
                 </div>
 
@@ -526,6 +593,13 @@ export default function Adminhome() {
                                         </td>
 
                                         <td>
+                                            <button
+                                                onClick={() => handleEditBook(book)}
+                                                className="edit-btn"
+                                                style={{ marginRight: '8px' }}
+                                            >
+                                                Edit
+                                            </button>
 
                                             <button
                                                 onClick={() =>

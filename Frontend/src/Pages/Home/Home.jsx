@@ -139,7 +139,7 @@ export default function Home() {
             <div className="login-buttons">
 
               <a className="login-btn" href="/login">
-                 Login/Signup
+                 Login
               </a>
 
             </div>

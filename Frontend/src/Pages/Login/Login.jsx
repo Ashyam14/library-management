@@ -107,9 +107,10 @@ export default function Login({ setUsername }) {
           </button>
          <div>
           <p>
-            Don't have an account?
+            New Registration?
             <a href="/signup">
-            Signup</a>
+            Register Here
+            </a>
           </p>
           </div>
 
