@@ -114,9 +114,6 @@ export default function Login({ setUsername }) {
           </p>
           </div>
 
-          
-
-
         </form>
 
       </div>

@@ -3,7 +3,7 @@ import './Userhome.css'
 import Logo from '../../../assets/Logo.jpeg'
 import userlogo from '../../../assets/userlogo.jpg'
 import Footer from '../../../Component/Footer/Footer'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import API from '../../../Api/api'
 
 export default function Userhome({ username }) {
@@ -164,13 +164,16 @@ export default function Userhome({ username }) {
                                 Explore Books
                             </button>
 
-                            <a
-                                href="/borrowed"
+                            <Link
+                                to="/borrowed"
                                 className="btn secondary-btn"
                             >
                                 My Borrowed Books
-                            </a>
+                            </Link>
 
+                            <Link to="/return-books" className="btn secondary-btn">
+                                Return Books
+                            </Link>
                         </div>
 
                         <input

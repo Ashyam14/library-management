@@ -394,30 +394,27 @@ export default function Adminhome() {
 
                     <div className="quantity-controls">
 
-                        <button
-                            onClick={() =>
-                                setQuantity(
-                                    quantity > 1
-                                        ? quantity - 1
-                                        : 1
-                                )
-                            }
-                        >
-                            -
-                        </button>
+                        {quantity > 0 && (
+                            <button
+                                onClick={() =>
+                                    setQuantity(
+                                        quantity > 1
+                                            ? quantity - 1
+                                            : 0
+                                    )
+                                }
+                            >
+                                -
+                            </button>
+                        )}
 
                         <span>{quantity}</span>
 
-                        <button
-                            onClick={() =>
-                                setQuantity(quantity + 1)
-                            }
-                        >
+                        <button onClick={() => setQuantity(quantity + 1)}>
                             +
                         </button>
 
                     </div>
-
                     <input
                         type="file"
                         accept="image/*"
@@ -594,6 +591,7 @@ export default function Adminhome() {
 
                                         <td>
                                             <button
+                                                
                                                 onClick={() => handleEditBook(book)}
                                                 className="edit-btn"
                                                 style={{ marginRight: '8px' }}

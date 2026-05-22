@@ -12,6 +12,7 @@ import UserHome from './Pages/Userpage/Home/Userhome'
 import Adminhome from './Pages/Adminpage/Home/Adminhome'
 import Books from './Pages/Userpage/Books/Books'
 import BorrowedBooks from './Pages/Userpage/BorrowedBooks/BorrowedBooks'
+import ReturnBooks from './Pages/Userpage/ReturnBooks/ReturnBooks'
 import Signup from './Pages/Signup/Signup'  
 
 function App() {
@@ -56,6 +57,10 @@ function App() {
         <Route
           path="/borrowed"
           element={<BorrowedBooks />}
+        />
+        <Route
+          path="/return-books"
+          element={<ReturnBooks />}
         />
         {/* Signup Page */}
         <Route 
