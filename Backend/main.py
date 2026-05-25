@@ -9,16 +9,13 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# CORS CONNECTION
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173",
-	"http://127.0.0.1:5173"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.post("/users/", response_model=schemas.UserResponse) #, status_code=status.HTTP_201_CREATED)
 def createuser(user:schemas.UserCreate, db:Session = Depends(get_db)):
@@ -102,7 +99,7 @@ def getid_return(user_id: str,db:Session=Depends(get_db)):
 	return crud_return.getid_return(db,user_id)
 
 @app.post("/return_book/",response_model= schemas.ReturnResponse)
-def borrow_return(borrow:schemas.BorrowBook, db:Session=Depends(get_db)):
+def borrow_return(borrow:schemas.ReturnBook, db:Session=Depends(get_db)):
 	return crud_return.borrow_return(db, borrow)
 
 

@@ -3,11 +3,12 @@ import './Books.css'
 import Navbar from "../../../Component/Navbar/Navbar"
 import Footer from '../../../Component/Footer/Footer'
 import API from '../../../Api/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function Books({ username }) {
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [books, setBooks] = useState([])
 
@@ -43,6 +44,28 @@ export default function Books({ username }) {
     const availableBooks = books.filter(
         b => (b.Quantity || 0) > 0
     )
+
+    const searchQuery = new URLSearchParams(location.search).get('search')?.trim().toLowerCase() || ''
+
+    const filteredBooks = availableBooks.filter((book) => {
+        const title = (book.Title || '').toString().toLowerCase()
+        const author = (book.Author || '').toString().toLowerCase()
+        const category = (book.Category || '').toString().toLowerCase()
+        const isbn = (book.ISBN || '').toString().toLowerCase()
+
+        return (
+            title.includes(searchQuery) ||
+            author.includes(searchQuery) ||
+            category.includes(searchQuery) ||
+            isbn.includes(searchQuery)
+        )
+    })
+
+    const displayedBooks = searchQuery ? filteredBooks : availableBooks
+
+    const pageTitle = searchQuery
+        ? `Search results for "${searchQuery}"`
+        : 'Available Books'
 
     // BORROW BOOK
     const borrowBook = async (book) => {
@@ -102,7 +125,7 @@ export default function Books({ username }) {
             <div className="books-page">
 
                 <h1 className="books-title">
-                    Available Books
+                    {pageTitle}
                 </h1>
 
                 {availableBooks.length === 0 ? (
@@ -111,11 +134,17 @@ export default function Books({ username }) {
                         No books available right now
                     </p>
 
+                ) : displayedBooks.length === 0 ? (
+
+                    <p className="no-books">
+                        No books match "{searchQuery}". Try another title, author, category, or ISBN.
+                    </p>
+
                 ) : (
 
                     <div className="books-grid">
 
-                        {availableBooks.map((book) => (
+                        {displayedBooks.map((book) => (
 
                             <div
                                 className="book-card"

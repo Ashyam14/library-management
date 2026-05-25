@@ -61,6 +61,20 @@ export default function Userhome({ username }) {
         }
     }
 
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault()
+
+        const query = searchQuery.trim()
+
+        if (query) {
+            navigate(`/books?search=${encodeURIComponent(query)}`)
+        } else {
+            navigate('/books')
+        }
+    }
+
     const handleLogout = () => {
         localStorage.removeItem('role')
         localStorage.removeItem('username')
@@ -176,11 +190,18 @@ export default function Userhome({ username }) {
                             </Link>
                         </div>
 
-                        <input
-                            type="text"
-                            placeholder="Search for books..."
-                            className="search-bar"
-                        />
+                        <form className="search-form" onSubmit={handleSearchSubmit}>
+                            <input
+                                type="text"
+                                placeholder="Search for books..."
+                                className="search-bar"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <button type="submit" className="search-btn">
+                                Search
+                            </button>
+                        </form>
 
                     </div>
 
