@@ -14,8 +14,8 @@ def borrow_return(db:Session,borrow:schemas.BorrowBook):
     
     total_quantity = sum(b.Quantity for b in db_borrow)
 
-    if not book:
-        raise HTTPException(status_code=404, detail="Book not Found")
+    # if not book:
+    #     raise HTTPException(status_code=404, detail="Book not Found")
 
 
     if not db_borrow:
@@ -53,8 +53,8 @@ def borrow_return(db:Session,borrow:schemas.BorrowBook):
         remaining -= current_return    
 
     
-    
-    book.Quantity += borrow.Quantity
+    if book:
+        book.Quantity += borrow.Quantity
     
     # db_borrow.Status = "Returned"   
 

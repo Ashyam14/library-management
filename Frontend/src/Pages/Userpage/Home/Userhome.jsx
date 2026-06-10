@@ -47,7 +47,6 @@ export default function Userhome({ username }) {
     const fetchUserDetails = async (userId) => {
         try {
             const response = await API.get('/users/')
-            // Find the current user in the list
             const currentUser = response.data.find(user => user.UserId === userId)
             if (currentUser) {
                 setUserDetails({

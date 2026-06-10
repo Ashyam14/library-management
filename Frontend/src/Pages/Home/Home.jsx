@@ -181,7 +181,7 @@ export default function Home() {
       </section>
 
       {/* Modal */}
-
+{/* 
       {selectedBook && (
 
         <div className="modal-overlay">
@@ -211,7 +211,7 @@ export default function Home() {
           </div>
 
         </div>
-      )}
+      )} */}
 
       {/* About Us */}
 

@@ -11,12 +11,15 @@ export default function Login({ setUsername }) {
 
   const [UserId, setUser] = useState('')
   const [Password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [toastVisible, setToastVisible] = useState(false)
 
   const handleLogin = async (e) => {
 
   e.preventDefault()
 
   try {
+    console.log('entere')
 
     const response = await API.post(
       '/login/',
@@ -30,7 +33,6 @@ export default function Login({ setUsername }) {
 
     // Admin Login
     if (response.data.Role === 'admin') {
-      // persist role so protected pages can enforce auth
       localStorage.setItem('role', 'admin')
       localStorage.setItem('isAuthenticated', 'true')
       navigate('/admin-home')
@@ -38,7 +40,6 @@ export default function Login({ setUsername }) {
 
     // User Login
     else if (response.data.Role === 'user') {
-      // persist username and role for session
       setUsername(response.data.UserId)
       localStorage.setItem('username', response.data.UserId)
       localStorage.setItem('role', 'user')
@@ -47,28 +48,35 @@ export default function Login({ setUsername }) {
     }
 
     else {
-
-      alert(response.data.message)
+      console.log('response', response)
+      alert(response)
     }
 
+    setError('')
+    setToastVisible(false)
   }
 
   catch (error) {
-
     console.log(error)
 
-    if (error.response) {
+    let message = 'Server Error'
 
-      alert(
-        JSON.stringify(error.response.data)
-      )
-
+    if (error.response && error.response.data) {
+      const data = error.response.data
+      if (typeof data === 'string') {
+        message = data
+      }
+      else if (data.detail) {
+        message = data.detail
+      }
+      else {
+        message = JSON.stringify(data)
+      }
     }
 
-    else {
-
-      alert('Server Error')
-    }
+    setError(message)
+    setToastVisible(true)
+    setTimeout(() => setToastVisible(false), 3000)
   }
 }
   return (
@@ -105,13 +113,20 @@ export default function Login({ setUsername }) {
           <button type="submit">
             Login
           </button>
-         <div>
-          <p>
-            New Registration?
-            <a href="/signup">
-            Register Here
-            </a>
-          </p>
+
+          {toastVisible && (
+            <div className="login-toast">
+              {error}
+            </div>
+          )}
+
+          <div>
+            <p>
+              New Registration?
+              <a href="/signup">
+                Register Here
+              </a>
+            </p>
           </div>
 
         </form>
