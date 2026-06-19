@@ -1,8 +1,13 @@
 .borrowed-container {
-    padding: 20px;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: calc(100vh - 100px);
+    padding: 140px 30px 40px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow-x: auto;
 }
 .borrowed-container h2 {
     margin-bottom: 20px;
@@ -80,4 +85,18 @@
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .borrowed-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 120px 16px 30px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
 }

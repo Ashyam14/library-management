@@ -10,6 +10,7 @@ import Home from './Pages/Home/Home'
 import Login from './Pages/Login/Login'
 import UserHome from './Pages/Userpage/Home/Userhome'
 import Adminhome from './Pages/Adminpage/Home/Adminhome'
+import Mydashboard from './Pages/Userpage/Mydashboard/Mydashboard'
 import Books from './Pages/Userpage/Books/Books'
 import BorrowedBooks from './Pages/Userpage/BorrowedBooks/BorrowedBooks'
 import ReturnBooks from './Pages/Userpage/ReturnBooks/ReturnBooks'
@@ -25,31 +26,29 @@ function App() {
 
       <Routes>
 
-        {/* Home Page */}
         <Route
           path="/"
           element={<Home />}
         />
 
-        {/* Login Page */}
+       
         <Route
           path="/login"
           element={<Login setUsername = {setUsername}/>}
         />
 
-        {/* User Home Page */}
+       
         <Route
           path="/user-home"
           element={<UserHome username={username} />}
         />
 
-        {/* Admin Home Page */}
         <Route
-          path="/admin-home"
-          element={<Adminhome />}
+          path="/mydashboard"
+          element={<Mydashboard />}
         />
 
-        {/* User View books page */}
+       
         <Route 
           path="/books"
           element={<Books/>}
@@ -62,10 +61,15 @@ function App() {
           path="/return-books"
           element={<ReturnBooks />}
         />
-        {/* Signup Page */}
+
         <Route 
           path="/signup"
           element={<Signup/>}
+        />
+
+        <Route
+          path="/admin-home"
+          element={<Adminhome />}
         />
 
       </Routes>

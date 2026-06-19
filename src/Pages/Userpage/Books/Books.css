@@ -1,16 +1,18 @@
 .books-page {
-    padding: 20px;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: calc(100vh - 100px);
+    padding: 140px 30px 40px;
     text-align: center;
+    box-sizing: border-box;
+    background: #f5f7fb;
 }
 
-.books-title {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
+
 
 .books-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
@@ -44,4 +46,25 @@
 .no-books {
     color: gray;
     font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .books-page {
+        margin-left: 0;
+        width: 100%;
+        padding: 120px 16px 30px;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .book-card {
+        padding: 18px;
+    }
+
+    .book-card h2 {
+        font-size: 20px;
+    }
 }

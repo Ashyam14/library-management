@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './BorrowedBooks.css'
 import Navbar from '../../../Component/Navbar/Navbar'
+import Sidebar from '../../../Component/Sidebar/Sidebar'
 import Footer from '../../../Component/Footer/Footer'
 import API from '../../../Api/api'
 import { useNavigate, Link } from 'react-router-dom'
@@ -43,7 +44,7 @@ export default function BorrowedBooks() {
     return (
         <>
             <Navbar />
-
+            <Sidebar />
             <div className="borrowed-container">
                 <h1>My Borrowed Books</h1>
                 <p className="borrowed-note">

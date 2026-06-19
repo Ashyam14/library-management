@@ -4,6 +4,7 @@ import './Login.css'
 import Navbar from '../../Component/Navbar/Navbar'
 import Footer from '../../Component/Footer/Footer'
 import API from '../../Api/api'
+import LoginBackground from '../../assets/loginbackground.jpg'
 
 export default function Login({ setUsername }) {
 
@@ -11,12 +12,15 @@ export default function Login({ setUsername }) {
 
   const [UserId, setUser] = useState('')
   const [Password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [toastVisible, setToastVisible] = useState(false)
 
   const handleLogin = async (e) => {
 
   e.preventDefault()
 
   try {
+    console.log('entere')
 
     const response = await API.post(
       '/login/',
@@ -45,28 +49,35 @@ export default function Login({ setUsername }) {
     }
 
     else {
-
-      alert(response.data.message)
+      console.log('response', response)
+      alert(response)
     }
 
+    setError('')
+    setToastVisible(false)
   }
 
   catch (error) {
-
     console.log(error)
 
-    if (error.response) {
+    let message = 'Server Error'
 
-      alert(
-        JSON.stringify(error.response.data)
-      )
-
+    if (error.response && error.response.data) {
+      const data = error.response.data
+      if (typeof data === 'string') {
+        message = data
+      }
+      else if (data.detail) {
+        message = data.detail
+      }
+      else {
+        message = JSON.stringify(data)
+      }
     }
 
-    else {
-
-      alert('Server Error')
-    }
+    setError(message)
+    setToastVisible(true)
+    setTimeout(() => setToastVisible(false), 3000)
   }
 }
   return (
@@ -74,12 +85,13 @@ export default function Login({ setUsername }) {
       <Navbar />
 
       <div className="login-container">
+        <img src={LoginBackground} alt="Login Background" className="login-background" />
 
         <form
           className="login-form"
           onSubmit={handleLogin}
         >
-
+          
           <h1>Login</h1>
 
           <input
@@ -103,13 +115,20 @@ export default function Login({ setUsername }) {
           <button type="submit">
             Login
           </button>
-         <div>
-          <p>
-            New Registration?
-            <a href="/signup">
-            Register Here
-            </a>
-          </p>
+
+          {toastVisible && (
+            <div className="login-toast">
+              {error}
+            </div>
+          )}
+
+          <div>
+            <p>
+              New Registration?
+              <a href="/signup">
+                Register Here
+              </a>
+            </p>
           </div>
 
         </form>

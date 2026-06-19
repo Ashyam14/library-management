@@ -4,6 +4,7 @@ import Navbar from "../../../Component/Navbar/Navbar"
 import Footer from '../../../Component/Footer/Footer'
 import API from '../../../Api/api'
 import { useNavigate, useLocation } from 'react-router-dom'
+import Sidebar from '../../../Component/Sidebar/Sidebar'
 
 export default function Books({ username }) {
 
@@ -121,12 +122,12 @@ export default function Books({ username }) {
     return (
         <>
             <Navbar />
-
+            <Sidebar />
+            
+              
             <div className="books-page">
 
-                <h1 className="books-title">
-                    {pageTitle}
-                </h1>
+               
 
                 {availableBooks.length === 0 ? (
 
