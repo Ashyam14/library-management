@@ -217,7 +217,7 @@ export default function ReturnBooks() {
                                     {borrowedBooks.map((borrow) => (
                                         <tr key={`${borrow.Title}-${borrow.Due_Date}-${borrow.UserId}`}>
                                             <td>{borrow.Title}</td>
-                                            <td>{borrow.Quantity}</td>
+                                             <td>{borrow.Status === "Returned" ? 1 : borrow.Quantity}</td>
                                             <td>{borrow.Due_Date ? new Date(borrow.Due_Date).toLocaleDateString() : '-'}</td>
                                             <td>{borrow.Status}</td>
                                         </tr>

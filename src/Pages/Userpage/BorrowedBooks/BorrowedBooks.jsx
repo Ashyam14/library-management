@@ -23,6 +23,7 @@ export default function BorrowedBooks() {
         const fetchBorrows = async () => {
             try {
                 const response = await API.get(`/borrow_getbyID/${encodeURIComponent(user)}`)
+                console.log(response.data)
                 setBorrows(response.data)
             } catch (err) {
                 console.error(err)
@@ -64,18 +65,41 @@ export default function BorrowedBooks() {
                                 <th>Status</th>
                                 <th>Return Date</th>
                                 <th>Fine</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {borrows.map(b => (
                                 <tr key={`${b.Title}-${b.UserId}-${b.Due_Date}-${b.Borrow_Date}-${b.Return_Date}`}> 
                                     <td>{b.Title}</td>
-                                    <td>{b.Quantity}</td>
-                                    <td>{b.Borrow_Date ? new Date(b.Borrow_Date).toLocaleDateString() : '-'}</td>
+                                    <td>{b.Status === "Returned" ? 1 : b.Quantity}</td>
+                                    <td>
+    {b.Borrow_Date
+        ? new Date(b.Borrow_Date).toLocaleDateString('en-GB')
+        : '-'}
+</td>
                                     <td>{b.Due_Date ? new Date(b.Due_Date).toLocaleDateString() : '-'}</td>
                                     <td>{b.Status}</td>
-                                    <td>{b.Return_Date ? new Date(b.Return_Date).toLocaleDateString() : '-'}</td>
-                                    <td>{calculateFine(b.Due_Date, b.Returned) > 0 ? `₹${calculateFine(b.Due_Date, b.Returned)}` : 'No Fine'}</td>
+                                    <td>
+    {b.Return_Date
+        ? new Date(b.Return_Date).toLocaleDateString('en-GB')
+        : 'Not Returned'}
+</td>
+                                    <td>
+    {calculateFine(
+        b.Due_Date,
+        b.Return_Date,
+        b.Status
+    ) > 0
+        ? `₹${calculateFine(
+              b.Due_Date,
+              b.Return_Date,
+              b.Status
+          )}`
+        : 'No Fine'}
+</td>
+<button className="return-button" onClick={() => navigate('/return-books')}>Return Books</button>
+                            
                                 </tr>
                             ))}
                         </tbody>
