@@ -127,7 +127,7 @@ export default function Books({ username }) {
               
             <div className="books-page">
 
-               
+                <h2>Available Books</h2>
 
                 {availableBooks.length === 0 ? (
 
@@ -174,7 +174,7 @@ export default function Books({ username }) {
 
                                 <div className="book-details">
 
-                                    <h2>{book.Title}</h2>
+                                    <h3>{book.Title}</h3>
 
                                     <p>
                                         <b>Author:</b>{' '}

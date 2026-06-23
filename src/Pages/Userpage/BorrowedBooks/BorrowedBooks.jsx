@@ -41,16 +41,16 @@ export default function BorrowedBooks() {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24))
         return days > 0 ? days * 10 : 0
     }
+    
 
     return (
         <>
             <Navbar />
             <Sidebar />
             <div className="borrowed-container">
-                <h1>My Borrowed Books</h1>
-                <p className="borrowed-note">
-                    To return books, please use the <Link to="/return-books">Return Books</Link> page.
-                </p>
+                <div className="borrowed-card">
+                <h2>My Borrowed Books</h2>
+            
 
                 {borrows.length === 0 ? (
                     <p>No borrowed books found.</p>
@@ -63,7 +63,6 @@ export default function BorrowedBooks() {
                                 <th>Borrow Date</th>
                                 <th>Due Date</th>
                                 <th>Status</th>
-                                <th>Return Date</th>
                                 <th>Fine</th>
                                 <th>Actions</th>
                             </tr>
@@ -81,11 +80,6 @@ export default function BorrowedBooks() {
                                     <td>{b.Due_Date ? new Date(b.Due_Date).toLocaleDateString() : '-'}</td>
                                     <td>{b.Status}</td>
                                     <td>
-    {b.Return_Date
-        ? new Date(b.Return_Date).toLocaleDateString('en-GB')
-        : 'Not Returned'}
-</td>
-                                    <td>
     {calculateFine(
         b.Due_Date,
         b.Return_Date,
@@ -98,7 +92,20 @@ export default function BorrowedBooks() {
           )}`
         : 'No Fine'}
 </td>
-<button className="return-button" onClick={() => navigate('/return-books')}>Return Books</button>
+
+ <button
+  className="return-button"
+  onClick={() =>
+    navigate('/return-books', {
+      state: {
+        title: b.Title
+      }
+    })
+  }
+>
+  Return Book
+</button>
+
                             
                                 </tr>
                             ))}
@@ -106,6 +113,7 @@ export default function BorrowedBooks() {
                     </table>
                 )}
 
+            </div>
             </div>
 
             <Footer />

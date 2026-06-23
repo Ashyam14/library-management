@@ -4,7 +4,7 @@ import Navbar from '../../../Component/Navbar/Navbar'
 import Sidebar from '../../../Component/Sidebar/Sidebar'
 import Footer from '../../../Component/Footer/Footer'
 import API from '../../../Api/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 
 export default function ReturnBooks() {
     const navigate = useNavigate()
@@ -16,6 +16,13 @@ export default function ReturnBooks() {
     const [error, setError] = useState('')
     const [payAmount, setPayAmount] = useState('')
     const [isPaying, setIsPaying] = useState(false)
+    const location = useLocation()
+
+useEffect(() => {
+    if (location.state?.title) {
+        setTitle(location.state.title)
+    }
+}, [location.state])
 
     useEffect(() => {
         const user = localStorage.getItem('username')

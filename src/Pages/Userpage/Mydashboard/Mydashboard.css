@@ -8,7 +8,7 @@
   margin-left: 260px;
   width: calc(100% - 260px);
   min-height: calc(100vh - 100px);
-  padding: 140px 30px 40px;
+  padding: 80px 30px 40px;
   color: #e2e8f0;
   box-sizing: border-box;
 }
