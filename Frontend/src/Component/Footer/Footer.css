@@ -4,27 +4,39 @@
     box-sizing: border-box;
 }
 .footer-container{
+    position: relative;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    overflow: visible;
     background-color: #000;
-
     padding: 60px 80px 20px;
-
     display: grid;
-
     grid-template-columns: repeat(3, 1fr);
-
     gap: 30px;
+    box-sizing: border-box;
+    max-width: 1600px;
+    margin-right: auto;
 }
+
+.admin-footer-container{
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    background-color: #000;
+    padding: 60px 80px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    box-sizing: border-box;
+}
+
 
 /* Rectangle Box */
 .footer-box{
     background-color: #111;
-
     padding: 30px;
-
     border-radius: 12px;
-
     min-height: 260px;
-
     box-shadow: 0px 4px 10px rgba(255,255,255,0.1);
 }
 
@@ -92,9 +104,15 @@
 @media screen and (max-width: 992px){
 
     .footer-container{
+        margin-left: 0;
+        width: 100%;
         grid-template-columns: repeat(2,1fr);
+        padding: 40px 20px;
+    }
 
-        padding: 40px;
+    .admin-footer-container{
+        width: 100%;
+        padding: 40px 20px;
     }
 }
 
@@ -102,8 +120,9 @@
 @media screen and (max-width: 768px){
 
     .footer-container{
+        margin-left: 0;
+        width: 100%;
         grid-template-columns: 1fr;
-
         padding: 30px 20px;
     }
 

@@ -125,16 +125,6 @@ def login(db:Session, user:schemas.UserLogin):
 
 		raise HTTPException(status_code=401,detail=f"Incorrect password. Attempts left: {max_attempt - db_UserId.Failed_attempt}")
 
-	
-
-	
-	
-		 
-
-
-
-
-
 """
 	if db_UserId :
 		if db_UserId.Password == hashed_password(user.Password) :

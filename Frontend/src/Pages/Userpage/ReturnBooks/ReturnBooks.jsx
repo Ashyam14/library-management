@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './ReturnBooks.css'
 import Navbar from '../../../Component/Navbar/Navbar'
+import Sidebar from '../../../Component/Sidebar/Sidebar'
 import Footer from '../../../Component/Footer/Footer'
 import API from '../../../Api/api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 
 export default function ReturnBooks() {
     const navigate = useNavigate()
@@ -15,6 +16,13 @@ export default function ReturnBooks() {
     const [error, setError] = useState('')
     const [payAmount, setPayAmount] = useState('')
     const [isPaying, setIsPaying] = useState(false)
+    const location = useLocation()
+
+useEffect(() => {
+    if (location.state?.title) {
+        setTitle(location.state.title)
+    }
+}, [location.state])
 
     useEffect(() => {
         const user = localStorage.getItem('username')
@@ -127,7 +135,7 @@ export default function ReturnBooks() {
     return (
         <>
             <Navbar />
-
+            <Sidebar />
             <div className="return-container">
                 <div className="return-card">
                     <h1>Return Books</h1>
@@ -216,7 +224,7 @@ export default function ReturnBooks() {
                                     {borrowedBooks.map((borrow) => (
                                         <tr key={`${borrow.Title}-${borrow.Due_Date}-${borrow.UserId}`}>
                                             <td>{borrow.Title}</td>
-                                            <td>{borrow.Quantity}</td>
+                                             <td>{borrow.Status === "Returned" ? 1 : borrow.Quantity}</td>
                                             <td>{borrow.Due_Date ? new Date(borrow.Due_Date).toLocaleDateString() : '-'}</td>
                                             <td>{borrow.Status}</td>
                                         </tr>

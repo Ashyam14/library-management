@@ -14,11 +14,17 @@ import Books from './Pages/Userpage/Books/Books'
 import BorrowedBooks from './Pages/Userpage/BorrowedBooks/BorrowedBooks'
 import ReturnBooks from './Pages/Userpage/ReturnBooks/ReturnBooks'
 import Signup from './Pages/Signup/Signup'  
+import TotalQuantity from './Pages/Adminpage/TotalQuantity/TotalQuantity'
+import UniqueBooks from './Pages/Adminpage/UniqueBooks/UniqueBooks'
+import BorrowedBooksAdmin from './Pages/Adminpage/BorrowedBooks/BorrowedBooksAdmin'
+import AvailableBooksAdmin from './Pages/Adminpage/AvailableBooks/AvailableBooksAdmin'
+import AdminUsers from './Pages/Adminpage/Users/AdminUsers'
+import MyDashboard from './Pages/Userpage/MyDashboard/MyDashboard'
+import BookDetails from './Pages/Userpage/Books/Bookdetails'
 
 function App() {
   const [count, setCount] = useState(0)
   const [username, setUsername] = useState('')
-
   return (
     <>
      <BrowserRouter>
@@ -54,6 +60,11 @@ function App() {
           path="/books"
           element={<Books/>}
         />
+        {/* User dashboard */}
+        <Route
+          path="/mydashboard"
+          element={<MyDashboard  />} 
+        />
         <Route
           path="/borrowed"
           element={<BorrowedBooks />}
@@ -67,6 +78,40 @@ function App() {
           path="/signup"
           element={<Signup/>}
         />
+
+        <Route
+          path="/admin/total-quantity"
+          element={<TotalQuantity />}
+        />
+
+        <Route
+          path="/admin/unique-books"
+          element={<UniqueBooks />}
+        />
+
+        <Route
+          path="/admin/total-quantity"
+          element={<TotalQuantity />}
+        />
+
+        <Route
+          path="/admin/borrowed-books"
+          element={<BorrowedBooksAdmin />}
+        />
+
+        <Route
+          path="/admin/available-books"
+          element={<AvailableBooksAdmin />}
+        />
+
+        <Route
+          path="/admin/users"
+          element={<AdminUsers />}
+        />
+       <Route
+          path="/view-books/:id"
+          element={<BookDetails />}
+      />
 
       </Routes>
     </BrowserRouter>

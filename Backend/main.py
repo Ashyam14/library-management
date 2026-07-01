@@ -50,6 +50,20 @@ def add_book(book:schemas.CreateBook, db:Session=Depends(get_db)):
 def readall_book(db:Session=Depends(get_db)):
 	return crud_book.get_book(db)
 
+@app.get("/view_books/{book_id}", response_model=schemas.BookResponse)
+def view_book(book_id: int, db: Session = Depends(get_db)):
+    return crud_book.get_book_by_id(db, book_id)
+	
+@app.get("/view_books/{book_id}", response_model=schemas.BookResponse)
+def get_book(book_id: int, db: Session = Depends(get_db)):
+    book = db.query(models.Book).filter(models.Book.Id == book_id).first()
+
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    return book
+
+
 @app.put("/book_update/{Title}")
 def update_book(Title:str, book:schemas.BookUpdate, db:Session=Depends(get_db)):
 	return crud_book.update_book(db, Title, book)

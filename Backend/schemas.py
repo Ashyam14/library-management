@@ -92,27 +92,29 @@ class LoginResponse(BaseModel):
     class Config:
         from_attributes = True 
 
-class CreateBook(BaseModel): 
-    
-    Title : str
-    Image : Optional[str] = None
+class CreateBook(BaseModel):
+    Title: str
+    Image: Optional[str] = None
     Author: str
-    Quantity : int = Field(gt=0,le=20)
+    Description: Optional[str] = None
+    Quantity: int = Field(gt=0, le=20)
     
     # Total_Quantity : int #---bud_ID - 2
 
 
 class BookResponse(BaseModel):
-    
-    Id : int
-    Image : Optional[str] = None
-    Title : str
+    Id: int
+    Image: Optional[str] = None
+    Title: str
     Author: str
-    Quantity : int
-    Total_Quantity : int 
+    Description: Optional[str] = None
+    Quantity: int
+    Total_Quantity: int
     Created_At: date
-    Updated_At :  Optional[date] = None
+    Updated_At: Optional[date] = None
 
+    class Config:
+        from_attributes = True
 
     class Config:
         from_attributes = True 
@@ -134,6 +136,7 @@ class BorrowResponse(BaseModel):
     Quantity : int
     Due_Date : date
     Status : str
+    Borrow_Date : date
 
 
 

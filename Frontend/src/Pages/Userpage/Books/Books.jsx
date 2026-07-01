@@ -4,6 +4,7 @@ import Navbar from "../../../Component/Navbar/Navbar"
 import Footer from '../../../Component/Footer/Footer'
 import API from '../../../Api/api'
 import { useNavigate, useLocation } from 'react-router-dom'
+import Sidebar from '../../../Component/Sidebar/Sidebar'
 
 export default function Books({ username }) {
 
@@ -67,6 +68,7 @@ export default function Books({ username }) {
         ? `Search results for "${searchQuery}"`
         : 'Available Books'
 
+
     // BORROW BOOK
     const borrowBook = async (book) => {
 
@@ -121,12 +123,12 @@ export default function Books({ username }) {
     return (
         <>
             <Navbar />
-
+            <Sidebar />
+            
+              
             <div className="books-page">
 
-                <h1 className="books-title">
-                    {pageTitle}
-                </h1>
+                <h2>Available Books</h2>
 
                 {availableBooks.length === 0 ? (
 
@@ -173,13 +175,13 @@ export default function Books({ username }) {
 
                                 <div className="book-details">
 
-                                    <h2>{book.Title}</h2>
+                                    <h3>{book.Title}</h3>
 
                                     <p>
                                         <b>Author:</b>{' '}
                                         {book.Author}
                                     </p>
-
+                            
                                     <p>
                                         <b>Available Quantity:</b>{' '}
                                         {book.Quantity ?? 0}
@@ -219,6 +221,12 @@ export default function Books({ username }) {
                                             : 'Out of Stock'}
 
                                     </button>
+                                    <button
+                                        className="view-details-btn"
+                                        onClick={() => navigate(`/view-books/${book.Id}`)}
+                                    >
+                                        About Book
+                                    </button>
 
                                 </div>
 
@@ -227,7 +235,7 @@ export default function Books({ username }) {
 
                     </div>
                 )}
-
+        
             </div>
 
             <Footer />

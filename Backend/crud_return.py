@@ -81,10 +81,6 @@ def borrow_return(db:Session,borrow:schemas.BorrowBook):
 
 
 def getid_return(db:Session, user_id:str):
-    db_user =  db.query(models.Return).filter(models.Return.UserId == user_id.lower()).all()
-    
+    db_user = db.query(models.Return).filter(models.Return.UserId == user_id.lower()).all()
 
-    if not db_user:
-        raise HTTPException(status_code=404, detail="User not Found")
-    else:
-        return db_user   
+    return db_user or []

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Login.css'
 import Navbar from '../../Component/Navbar/Navbar'
-import Footer from '../../Component/Footer/Footer'
+import AdminFooter from '../../Component/Footer/AdminFooter'
 import API from '../../Api/api'
+import LoginBackground from '../../assets/loginbackground.jpg'
 
 export default function Login({ setUsername }) {
 
@@ -84,12 +85,13 @@ export default function Login({ setUsername }) {
       <Navbar />
 
       <div className="login-container">
+        <img src={LoginBackground} alt="Login Background" className="login-background" />
 
         <form
           className="login-form"
           onSubmit={handleLogin}
         >
-
+          
           <h1>Login</h1>
 
           <input
@@ -133,7 +135,7 @@ export default function Login({ setUsername }) {
 
       </div>
 
-      <Footer />
+      <AdminFooter />
     </>
   )
 }

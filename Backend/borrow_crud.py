@@ -66,12 +66,9 @@ def get_borrow(db:Session):
 
 
 def getid_borrow(db:Session, user_id:str):
-    db_user =  db.query(models.Borrow).filter(models.Borrow.UserId == user_id.lower()).all()
+    db_user = db.query(models.Borrow).filter(models.Borrow.UserId == user_id.lower()).all()
 
-    if not db_user:
-        raise HTTPException(status_code=404, detail="User not Found")
-    else:
-        return db_user
+    return db_user or []
 
 
 

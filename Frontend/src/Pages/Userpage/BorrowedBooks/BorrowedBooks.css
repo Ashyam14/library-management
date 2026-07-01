@@ -1,83 +1,204 @@
 .borrowed-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: calc(100vh - 100px);
+    background: linear-gradient(180deg, #0f172a 0%, #111827 55%, #0f172a 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 80px 20px 40px;
+    box-sizing: border-box;
 }
-.borrowed-container h2 {
-    margin-bottom: 20px;
-    color: #333;
+
+@media (max-width: 1024px) {
+    .borrowed-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 16px 30px;
+    }
 }
+
+.borrowed-card {
+    width: min(1100px, 100%);
+    background: #111827;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 24px;
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+    padding: 36px;
+    color: #e2e8f0;
+}
+
+.borrowed-card h2 {
+    margin: 0 0 24px;
+    font-size: 32px;
+    color: #f8fafc;
+}
+
 .borrowed-table {
     width: 100%;
     border-collapse: collapse;
+    color: #e2e8f0;
 }
-.borrowed-table th, .borrowed-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
+
+.borrowed-table th,
+.borrowed-table td {
     text-align: left;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 }
+
 .borrowed-table th {
-    background-color: #f2f2f2;
-    color: #555;
+    background: rgba(37, 99, 235, 0.15);
+    color: #93c5fd;
+    font-size: 15px;
+    font-weight: 600;
 }
-.borrowed-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+
 .borrowed-table tr:hover {
-    background-color: #f1f1f1;
+    background: rgba(255, 255, 255, 0.03);
 }
-.borrowed-table .status {
-    font-weight: bold;
-}
-.borrowed-table .status.returned {
-    color: green;
-}
-.borrowed-table .status.overdue {
-    color: red;
-}
-.borrowed-table .status.borrowed {
-    color: orange;
-}
-.no-books {
-    text-align: center;
-    color: #777;
-    font-size: 18px;
-    margin-top: 40px;
-}
-.borrowed-table .action-btn {
-    padding: 6px 12px;
-    background-color: #007bff;
-    color: white;
+
+.return-button {
+    display: block;
+    margin: 25px auto 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
-.borrowed-table .action-btn:hover {
-    background-color: #0056b3;
+
+.return-button:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
 }
-.borrowed-table .action-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+
+@media (max-width: 768px) {
+    .borrowed-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 120px 16px 30px;
+    }
+
+    .borrowed-card {
+        width: 100%;
+        padding: 24px;
+        border-radius: 20px;
+        overflow-x: auto;
+    }
 }
-.borrowed-table .action-btn.return {
-    background-color: #28a745;
+
+/* ==========================
+   Large Screens (1440px+)
+========================== */
+@media (min-width: 1440px) {
+    .borrowed-card {
+        max-width: 1300px;
+    }
 }
-.borrowed-table .action-btn.return:hover {
-    background-color: #218838;
+
+/* ==========================
+   Laptop (1024px - 1439px)
+========================== */
+@media (max-width: 1439px) {
+    .borrowed-card {
+        width: 100%;
+    }
 }
-.borrowed-table .action-btn.renew {
-    background-color: #ffc107;
+
+/* ==========================
+   Tablet (769px - 1023px)
+========================== */
+@media (max-width: 1023px) {
+    .borrowed-container {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        padding: 70px 20px 30px;
+    }
+
+    .borrowed-card {
+        padding: 28px;
+    }
+
+    .borrowed-card h2 {
+        font-size: 28px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 12px;
+        font-size: 14px;
+    }
 }
-.borrowed-table .action-btn.renew:hover {
-    background-color: #e0a800;
+
+/* ==========================
+   Mobile & Small Tablet
+========================== */
+@media (max-width: 768px) {
+    .borrowed-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 110px 15px 30px;
+    }
+
+    .borrowed-card {
+        width: 100%;
+        padding: 20px;
+        border-radius: 18px;
+        overflow-x: auto;
+    }
+
+    .borrowed-card h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .borrowed-table {
+        min-width: 700px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 12px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .return-button {
+        width: 100%;
+        padding: 14px;
+        font-size: 15px;
+    }
 }
-.borrowed-table .action-btn.disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-.disabled-btn {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
+
+/* ==========================
+   Small Mobile (480px)
+========================== */
+@media (max-width: 480px) {
+    .borrowed-container {
+        padding: 100px 10px 20px;
+    }
+
+    .borrowed-card {
+        padding: 16px;
+    }
+
+    .borrowed-card h2 {
+        font-size: 22px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .return-button {
+        font-size: 14px;
+        padding: 12px;
+    }
 }

@@ -28,6 +28,7 @@ class Book(Base):
 	Updated_At = Column(Date,nullable=True)
 	Quantity = Column(Integer,index=True,nullable=False)
 	Total_Quantity = Column(Integer,index=True,nullable=False)
+	Description = Column(Text,nullable=True)
 
 
 

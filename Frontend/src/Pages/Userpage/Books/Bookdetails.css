@@ -1,0 +1,132 @@
+*.book-details-page {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: calc(100vh - 100px);
+    padding: 60px 30px;
+    background: linear-gradient(180deg, #0f172a, #111827);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+    .book-details-page {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 16px 30px;
+    }
+}
+
+/* Card */
+.book-details-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+/* Image */
+.book-image {
+    display: block;
+    width: 180px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 0 auto 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* Title */
+.book-details-card h2 {
+    font-size: 26px;
+    color: #1f2937;
+    margin-bottom: 15px;
+}
+
+/* Text */
+.book-details-card p {
+    font-size: 16px;
+    color: #4b5563;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+/* Label emphasis */
+.book-details-card strong {
+    color: #111827;
+}
+
+/* Back Button */
+.back-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .book-details-page {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+    }
+
+    .book-details-card {
+        padding: 25px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .book-details-page {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 15px;
+    }
+
+    .book-details-card {
+        padding: 20px;
+    }
+
+    .book-image {
+        width: 150px;
+        height: 200px;
+    }
+
+    .book-details-card h2 {
+        font-size: 22px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .book-details-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .book-details-card p {
+        font-size: 14px;
+    }
+
+    .back-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+}

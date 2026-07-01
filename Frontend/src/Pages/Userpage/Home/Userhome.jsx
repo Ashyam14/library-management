@@ -3,6 +3,7 @@ import './Userhome.css'
 import Logo from '../../../assets/Logo.jpeg'
 import userlogo from '../../../assets/userlogo.jpg'
 import Footer from '../../../Component/Footer/Footer'
+import Sidebar from '../../../Component/Sidebar/Sidebar'
 import { useNavigate, Link } from 'react-router-dom'
 import API from '../../../Api/api'
 
@@ -28,8 +29,12 @@ export default function Userhome({ username }) {
         }
         if (!username && user) setStoredUsername(user)
         
-        // Fetch user details
-        fetchUserDetails(user || username)
+        // Fetch user details and dashboard counts
+        const userId = user || username
+        if (userId) {
+            fetchUserDetails(userId)
+            fetchDashboardData(userId)
+        }
     }, [navigate, username])
 
     // Close dropdown when clicking outside
@@ -60,7 +65,46 @@ export default function Userhome({ username }) {
         }
     }
 
+    const [dashboardLoading, setDashboardLoading] = useState(true)
+    const [borrowedBooks, setBorrowedBooks] = useState([])
+    const [returnedBooks, setReturnedBooks] = useState([])
+    const [totalBorrowedBooks, setTotalBorrowedBooks] = useState(0)
+    const [activeBorrowedBooks, setActiveBorrowedBooks] = useState(0)
+    const [totalReturnedBooks, setTotalReturnedBooks] = useState(0)
     const [searchQuery, setSearchQuery] = useState('')
+
+    const fetchDashboardData = async (userId) => {
+        setDashboardLoading(true)
+        try {
+            const borrowResponse = await API.get(`/borrow_getbyID/${encodeURIComponent(userId)}`)
+            const borrowList = Array.isArray(borrowResponse.data) ? borrowResponse.data : []
+            setBorrowedBooks(borrowList)
+            setTotalBorrowedBooks(borrowList.reduce((sum, item) => sum + (Number(item.Quantity) || 0), 0))
+            setActiveBorrowedBooks(borrowList.reduce((sum, item) => sum + ((item.Status === 'Active' ? Number(item.Quantity) : 0) || 0), 0))
+        } catch (error) {
+            if (!error.response || error.response.status !== 404) {
+                console.error('Error fetching borrow data:', error)
+            }
+            setBorrowedBooks([])
+            setTotalBorrowedBooks(0)
+            setActiveBorrowedBooks(0)
+        }
+
+        try {
+            const returnResponse = await API.get(`/return_getbyID/${encodeURIComponent(userId)}`)
+            const returnList = Array.isArray(returnResponse.data) ? returnResponse.data : []
+            setReturnedBooks(returnList)
+            setTotalReturnedBooks(returnList.reduce((sum, item) => sum + (Number(item.Quantity) || 0), 0))
+        } catch (error) {
+            if (!error.response || error.response.status !== 404) {
+                console.error('Error fetching return history:', error)
+            }
+            setReturnedBooks([])
+            setTotalReturnedBooks(0)
+        } finally {
+            setDashboardLoading(false)
+        }
+    }
 
     const handleSearchSubmit = (event) => {
         event.preventDefault()
@@ -150,6 +194,8 @@ export default function Userhome({ username }) {
 
             </nav>
 
+            <Sidebar />
+
             <div className="userhome-container">
 
                 <img
@@ -173,7 +219,7 @@ export default function Userhome({ username }) {
 
                         <div className="button-group">
 
-                            <button className="btn" onClick={() => navigate("/books")}>
+                            <button className="btn secondary-btn" onClick={() => navigate("/books")}>
                                 Explore Books
                             </button>
 

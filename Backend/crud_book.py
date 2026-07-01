@@ -20,12 +20,13 @@ def create_book(db:Session,user:schemas.CreateBook):
 		# book = models.Book(Book_Id = user.Book_Id.lower(), Title = user.Title.lower(), Author = user.Author.lower(), Quantity = user.Quantity)
 		# book = models.Book(Title = user.Title.lower(), Author = user.Author.lower(), Quantity = user.Quantity) #---bud_ID - 1
 		book = models.Book(
-			Image = user.Image,
-			Title = user.Title.lower(),
-			Author = user.Author.lower(),
-			Quantity = user.Quantity,
-			Total_Quantity = user.Quantity,
-			Created_At = datetime.now()
+			Image=user.Image,
+			Title=user.Title.lower(),
+			Author=user.Author.lower(),
+			Description=user.Description,
+			Quantity=user.Quantity,
+			Total_Quantity=user.Quantity,
+			Created_At=datetime.now()
 		)
 		db.add(book)
 		db.commit()
@@ -100,3 +101,11 @@ def book_report(db:Session):
 		 	"Stock":db_stock,
 		 	"Borrow_Quantity": db_borrow
 		 }
+
+def get_book_by_id(db: Session, book_id: int):
+    db_book = db.query(models.Book).filter(models.Book.Id == book_id).first()
+
+    if not db_book:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    return db_book
