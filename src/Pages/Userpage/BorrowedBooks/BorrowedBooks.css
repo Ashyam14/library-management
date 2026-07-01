@@ -10,6 +10,14 @@
     box-sizing: border-box;
 }
 
+@media (max-width: 1024px) {
+    .borrowed-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 16px 30px;
+    }
+}
+
 .borrowed-card {
     width: min(1100px, 100%);
     background: #111827;
@@ -81,5 +89,116 @@
         padding: 24px;
         border-radius: 20px;
         overflow-x: auto;
+    }
+}
+
+/* ==========================
+   Large Screens (1440px+)
+========================== */
+@media (min-width: 1440px) {
+    .borrowed-card {
+        max-width: 1300px;
+    }
+}
+
+/* ==========================
+   Laptop (1024px - 1439px)
+========================== */
+@media (max-width: 1439px) {
+    .borrowed-card {
+        width: 100%;
+    }
+}
+
+/* ==========================
+   Tablet (769px - 1023px)
+========================== */
+@media (max-width: 1023px) {
+    .borrowed-container {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        padding: 70px 20px 30px;
+    }
+
+    .borrowed-card {
+        padding: 28px;
+    }
+
+    .borrowed-card h2 {
+        font-size: 28px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* ==========================
+   Mobile & Small Tablet
+========================== */
+@media (max-width: 768px) {
+    .borrowed-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 110px 15px 30px;
+    }
+
+    .borrowed-card {
+        width: 100%;
+        padding: 20px;
+        border-radius: 18px;
+        overflow-x: auto;
+    }
+
+    .borrowed-card h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .borrowed-table {
+        min-width: 700px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 12px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .return-button {
+        width: 100%;
+        padding: 14px;
+        font-size: 15px;
+    }
+}
+
+/* ==========================
+   Small Mobile (480px)
+========================== */
+@media (max-width: 480px) {
+    .borrowed-container {
+        padding: 100px 10px 20px;
+    }
+
+    .borrowed-card {
+        padding: 16px;
+    }
+
+    .borrowed-card h2 {
+        font-size: 22px;
+    }
+
+    .borrowed-table th,
+    .borrowed-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .return-button {
+        font-size: 14px;
+        padding: 12px;
     }
 }

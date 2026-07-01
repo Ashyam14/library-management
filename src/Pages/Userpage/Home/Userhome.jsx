@@ -219,7 +219,7 @@ export default function Userhome({ username }) {
 
                         <div className="button-group">
 
-                            <button className="btn" onClick={() => navigate("/books")}>
+                            <button className="btn secondary-btn" onClick={() => navigate("/books")}>
                                 Explore Books
                             </button>
 

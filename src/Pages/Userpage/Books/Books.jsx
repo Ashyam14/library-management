@@ -68,6 +68,7 @@ export default function Books({ username }) {
         ? `Search results for "${searchQuery}"`
         : 'Available Books'
 
+
     // BORROW BOOK
     const borrowBook = async (book) => {
 
@@ -180,7 +181,7 @@ export default function Books({ username }) {
                                         <b>Author:</b>{' '}
                                         {book.Author}
                                     </p>
-
+                            
                                     <p>
                                         <b>Available Quantity:</b>{' '}
                                         {book.Quantity ?? 0}
@@ -220,6 +221,12 @@ export default function Books({ username }) {
                                             : 'Out of Stock'}
 
                                     </button>
+                                    <button
+                                        className="view-details-btn"
+                                        onClick={() => navigate(`/view-books/${book.Id}`)}
+                                    >
+                                        About Book
+                                    </button>
 
                                 </div>
 
@@ -228,7 +235,7 @@ export default function Books({ username }) {
 
                     </div>
                 )}
-
+        
             </div>
 
             <Footer />

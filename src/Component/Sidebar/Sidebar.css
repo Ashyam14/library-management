@@ -1,13 +1,13 @@
 .sidebar-toggle {
   display: none;
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
   z-index: 1001;
   background-color: #1d4ed8;
   color: white;
   border: none;
-  padding: 10px 14px;
+  padding: 8px 12px;
   font-size: 24px;
   cursor: pointer;
   border-radius: 8px;
@@ -40,7 +40,7 @@
 }
 
 .sidebar-header {
-  padding: 18px 16px;
+  padding: 16px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
@@ -189,4 +189,134 @@
   .sidebar-overlay.hidden {
     display: none;
   }
+}
+
+/* ================= Large Desktop ================= */
+@media (min-width: 1440px) {
+    .sidebar {
+        width: 280px;
+    }
+}
+
+/* ================= Laptop ================= */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 1rem;
+    }
+
+    .sidebar-item {
+        padding: 12px 14px;
+        gap: 12px;
+    }
+
+    .sidebar-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* ================= Tablet ================= */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .sidebar-item {
+        padding: 10px 14px;
+    }
+
+    .sidebar-icon {
+        font-size: 1.2rem;
+    }
+
+    .sidebar-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* ================= Mobile ================= */
+@media (max-width: 768px) {
+
+    .sidebar-toggle {
+        display: block;
+        top: 18px;
+        left: 15px;
+        padding: 8px 12px;
+        font-size: 22px;
+    }
+
+    .sidebar {
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-header {
+        padding: 16px;
+    }
+
+    .sidebar-close {
+        display: block;
+    }
+
+    .sidebar-item {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+
+    .sidebar-label {
+        font-size: 15px;
+    }
+
+    .sidebar-footer {
+        font-size: 13px;
+        padding: 14px;
+    }
+
+    .sidebar-overlay {
+        display: block;
+    }
+
+    .sidebar-overlay.hidden {
+        display: none;
+    }
+}
+
+/* ================= Small Mobile ================= */
+@media (max-width: 480px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .sidebar-toggle {
+        top: 15px;
+        left: 10px;
+        padding: 7px 10px;
+        font-size: 20px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 16px;
+    }
+
+    .sidebar-item {
+        padding: 12px 15px;
+    }
+
+    .sidebar-label {
+        font-size: 14px;
+    }
+
+    .sidebar-icon {
+        font-size: 18px;
+    }
 }

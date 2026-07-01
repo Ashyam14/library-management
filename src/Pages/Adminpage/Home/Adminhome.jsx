@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './Adminhome.css'
 import Navbar from '../../../Component/Navbar/Navbar'
 import Footer from '../../../Component/Footer/Footer'
 import Adminlogo from '../../../assets/adminlogo.jpg'
 import { useNavigate } from 'react-router-dom'
 import API from "../../../Api/api";
+import AdminFooter from '../../../Component/Footer/AdminFooter'
 
 export default function Adminhome() {
 
@@ -29,21 +30,11 @@ export default function Adminhome() {
     const [books, setBooks] = useState([])
     const [users, setUsers] = useState([])
     const [borrowedRecords, setBorrowedRecords] = useState([])
-    const [selectedSection, setSelectedSection] = useState('books')
 
     const fetchBooks = async () => {
         try {
             const response = await API.get('/view_books/')
             setBooks(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const fetchBorrowedRecords = async () => {
-        try {
-            const response = await API.get('/get_borrow/')
-            setBorrowedRecords(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -58,26 +49,33 @@ export default function Adminhome() {
         }
     }
 
+    const fetchBorrowedRecords = async () => {
+        try {
+            const response = await API.get('/get_borrow/')
+            setBorrowedRecords(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
-        fetchBooks()
-        fetchBorrowedRecords()
-        fetchUsers()
+        (async () => {
+            await fetchBooks()
+            await fetchBorrowedRecords()
+            await fetchUsers()
+        })()
     }, [])
 
 
     // BOOK INPUT STATES
     const [newBookTitle, setNewBookTitle] = useState('')
     const [newBookAuthor, setNewBookAuthor] = useState('')
+    const [newBookDescription, setNewBookDescription] = useState('')
     const [quantity, setQuantity] = useState(1)
     const [bookImage, setBookImage] = useState(null)
     const [bookImages, setBookImages] = useState({})
     const [editMode, setEditMode] = useState(false)
     const [editOriginalTitle, setEditOriginalTitle] = useState('')
-
-    // USER INPUT STATES
-    const [newUserName, setNewUserName] = useState('')
-    const [newUserEmail, setNewUserEmail] = useState('')
-    const [newUserPassword, setNewUserPassword] = useState('')
 
     // IMAGE UPLOAD
     const handleImageUpload = (e) => {
@@ -111,7 +109,8 @@ export default function Adminhome() {
             Title: newBookTitle,
             Author: newBookAuthor,
             Quantity: quantity,
-            Image: bookImage
+            Image: bookImage,
+            Description: newBookDescription
         }
 
         const response = await API.post(
@@ -169,7 +168,8 @@ export default function Adminhome() {
             Title: newBookTitle,
             Author: newBookAuthor,
             Quantity: quantity,
-            Image: bookImage
+            Image: bookImage,
+            Description: newBookDescription
         }
 
         await API.put(
@@ -206,6 +206,7 @@ export default function Adminhome() {
         setEditOriginalTitle(book.Title)
         setNewBookTitle(book.Title)
         setNewBookAuthor(book.Author)
+        setNewBookDescription(book.Description || '')
         setQuantity(book.Quantity || 1)
         setBookImage(book.Image || book.image || null)
         setSelectedSection('books')
@@ -233,86 +234,7 @@ export default function Adminhome() {
         alert('Delete Failed')
     }
 }
-    const createUserId = name => {
-        const base = name
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, '_')
-            .replace(/[^a-z0-9_]/g, '')
 
-        const padded = base.length >= 4 ? base.slice(0, 10) : base.padEnd(4, 'user')
-        const suffix = Math.floor(100 + Math.random() * 900)
-
-        return `${padded}${suffix}`
-    }
-
-    // ADD USER
-    const addUser = async () => {
-
-        if (
-            !newUserName ||
-            !newUserEmail ||
-            !newUserPassword
-        ) {
-            alert('Please enter all user details')
-            return
-        }
-
-        const emailLower = newUserEmail.toLowerCase()
-
-        const userExists = users.find(
-            u => u.Email?.toLowerCase() === emailLower
-        )
-
-        if (userExists) {
-            alert('User already exists')
-            return
-        }
-
-        const userData = {
-            Name: newUserName,
-            UserId: createUserId(newUserName),
-            Email: newUserEmail,
-            Password: newUserPassword,
-            Role: 'user'
-        }
-
-        try {
-            await API.post('/users/', userData)
-            alert('User Added Successfully')
-            fetchUsers()
-            setNewUserName('')
-            setNewUserEmail('')
-            setNewUserPassword('')
-        } catch (error) {
-            console.log(error)
-            if (error.response) {
-                alert(JSON.stringify(error.response.data))
-            } else {
-                alert('Server Error')
-            }
-        }
-    }
-
-    // DELETE USER
-    const deleteUser = async (userId) => {
-
-        if (
-            window.confirm(
-                'Are you sure you want to delete this user?'
-            )
-        ) {
-
-            try {
-                await API.delete(`/user_delete/${encodeURIComponent(userId)}`)
-                alert('User Deleted')
-                fetchUsers()
-            } catch (error) {
-                console.log(error)
-                alert('Delete Failed')
-            }
-        }
-    }
 
     // FILTERS
     const borrowedBooks = borrowedRecords
@@ -337,6 +259,7 @@ export default function Adminhome() {
         return days > 0 ? days * 10 : 0
     }
 
+
     return (
         <>
             <Navbar />
@@ -353,9 +276,7 @@ export default function Adminhome() {
                     />
 
                     <div>
-                        <h1 className="admin-welcome">
-                            Welcome, Admin!
-                        </h1>
+                        <h1 className="admin-welcome">Welcome, Admin!</h1>
 
                         <p className="admin-subtitle">
                             Library Management System
@@ -379,7 +300,7 @@ export default function Adminhome() {
                         placeholder="Book Title"
                         value={newBookTitle}
                         onChange={(e) =>
-                            setNewBookTitle(e.target.value)
+                            setNewBookTitle(e.target.value.toUpperCase())
                         }
                     />
 
@@ -388,7 +309,7 @@ export default function Adminhome() {
                         placeholder="Author"
                         value={newBookAuthor}
                         onChange={(e) =>
-                            setNewBookAuthor(e.target.value)
+                            setNewBookAuthor(e.target.value.toUpperCase())
                         }
                     />
 
@@ -415,6 +336,15 @@ export default function Adminhome() {
                         </button>
 
                     </div>
+                    <div className="description-container">
+                        <textarea
+                            value={newBookDescription}
+                            onChange={(e) => setNewBookDescription(e.target.value)}
+                            placeholder="Enter book description"
+                            rows="4"
+                        />
+                    </div>
+
                     <input
                         type="file"
                         accept="image/*"
@@ -468,9 +398,9 @@ export default function Adminhome() {
                 <div className="dashboard-cards">
 
                     <div
-                        className="dashboard-card"
+                        className="dashboard-card card-blue"
                         onClick={() =>
-                            setSelectedSection('books')
+                            navigate('/admin/unique-books')
                         }
                     >
                         <h3>Total Unique Books</h3>
@@ -478,320 +408,62 @@ export default function Adminhome() {
                     </div>
 
                     <div
-                        className="dashboard-card"
+                        className="dashboard-card card-green"
                         onClick={() =>
-                            setSelectedSection('totalQuantity')
+                            navigate('/admin/total-quantity')
                         }
                     >
                         <h3>Total Quantity Books</h3>
                         <p>{books.reduce(
                             (total, book) =>
-                                total + (book.Total_Quantity || 0),
+                                total + (Number(book.Total_Quantity || book.Quantity || 0) || 0),
                             0
                         )}</p>
                     </div>
 
                     <div
-                        className="dashboard-card"
+                        className="dashboard-card card-orange"
                         onClick={() =>
-                            setSelectedSection('users')
+                            navigate('/admin/users')
                         }
                     >
                         <h3>Total Users</h3>
                         <p>{users.length}</p>
                     </div>
 
-                    <div
-                        className="dashboard-card"
+                                    <div
+                        className="dashboard-card card-red"
                         onClick={() =>
-                            setSelectedSection('borrowed')
+                            navigate('/admin/borrowed-books')
                         }
                     >
                         <h3>Borrowed Books</h3>
                         <p>{borrowedBooks.reduce(
                             (total, book) =>
-                                total + (book.Quantity || 0),
+                                total + (Number(book.Quantity) || 0),
                             0
                         )}</p>
                     </div>
 
                     <div
-                        className="dashboard-card"
+                        className="dashboard-card card-yellow"
                         onClick={() =>
-                            setSelectedSection('available')
+                            navigate('/admin/available-books')
                         }
                     >
                         <h3>Available Books</h3>
                         <p>{availableBooks.reduce(
                             (total, book) =>
-                                total + (book.Quantity || 0),
+                                total + (Number(book.Quantity) || 0),
                             0
                         )}</p>
                     </div>
 
                 </div>
 
-                {/* DETAILS */}
-                <div className="details-section">
-
-                    {/* BOOKS */}
-                    {selectedSection === 'books' && (
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Image</th>
-                                    <th>Quantity</th>
-                                    <th>Action</th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                {books.map(book => (
-
-                                    <tr key={book.Id}>
-
-                                        <td>{book.Id}</td>
-
-                                        <td>{book.Title}</td>
-
-                                        <td>{book.Author}</td>
-
-                                        <td>
-
-                                            {(bookImages[book.Id] || bookImages[book.Title] || book.Image || book.image) ? (
-
-                                                <img
-                                                    src={bookImages[book.Id] || bookImages[book.Title] || book.Image || book.image}
-                                                    alt={book.Title}
-                                                    style={{
-                                                        height: '50px',
-                                                        width: '40px',
-                                                        objectFit: 'cover',
-                                                        borderRadius: '4px'
-                                                    }}
-                                                />
-
-                                            ) : (
-                                                'No Image'
-                                            )}
-
-                                        </td>
-
-                                        <td>
-                                            {book.Quantity || 1}
-                                        </td>
-
-                                        <td>
-                                            <button
-                                                
-                                                onClick={() => handleEditBook(book)}
-                                                className="edit-btn"
-                                                style={{ marginRight: '8px' }}
-                                            >
-                                                Edit
-                                            </button>
-
-                                            <button
-                                                onClick={() =>
-                                                    deleteBook(book.Title)
-                                                }
-                                                className="delete-btn"
-                                            >
-                                                Delete
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-                                ))}
-
-                            </tbody>
-
-                        </table>
-                    )}
-
-                    {/* TOTAL QUANTITY BOOKS */}
-                    {selectedSection === 'totalQuantity' && (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Total Quantity</th>
-                                    <th>Current Stock</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {books.map((book) => (
-                                    <tr key={book.Id}>
-                                        <td>{book.Id}</td>
-                                        <td>{book.Title}</td>
-                                        <td>{book.Author}</td>
-                                        <td>{book.Total_Quantity ?? book.Quantity ?? 0}</td>
-                                        <td>{book.Quantity ?? 0}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-
-                    {/* BORROWED BOOKS */}
-                    {selectedSection === 'borrowed' && (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>User</th>
-                                    <th>Quantity</th>
-                                    <th>Due Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {borrowedRecords.map((borrow) => (
-                                    <tr key={`${borrow.Title}-${borrow.UserId}-${borrow.Due_Date}`}>
-                                        <td>{borrow.Title}</td>
-                                        <td>{borrow.UserId}</td>
-                                        <td>{borrow.Quantity}</td>
-                                        <td>{borrow.Due_Date}</td>
-                                        <td>{borrow.Status}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-
-                    {/* AVAILABLE BOOKS */}
-                    {selectedSection === 'available' && (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {availableBooks.map((book) => (
-                                    <tr key={book.Id}>
-                                        <td>{book.Id}</td>
-                                        <td>{book.Title}</td>
-                                        <td>{book.Author}</td>
-                                        <td>{book.Quantity}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-
-                    {/* USERS */}
-                    {selectedSection === 'users' && (
-
-                        <>
-
-                            <div className="add-user-section">
-
-                                <h3>Add User</h3>
-
-                                <input
-                                    type="text"
-                                    placeholder="Name"
-                                    value={newUserName}
-                                    onChange={(e) =>
-                                        setNewUserName(e.target.value)
-                                    }
-                                />
-
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    value={newUserEmail}
-                                    onChange={(e) =>
-                                        setNewUserEmail(e.target.value)
-                                    }
-                                />
-
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    value={newUserPassword}
-                                    onChange={(e) =>
-                                        setNewUserPassword(e.target.value)
-                                    }
-                                />
-
-                                <button onClick={addUser}>
-                                    Add User
-                                </button>
-
-                            </div>
-
-                            <table>
-
-                                <thead>
-
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Action</th>
-                                        <th>Role</th>
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-
-                                    {users.map(user => (
-
-                                        <tr key={user.Id}>
-
-                                            <td>{user.Id}</td>
-
-                                            <td>{user.Name}</td>
-
-                                            <td>{user.Email}</td>
-
-                                            <td>
-
-                                                <button
-                                                    onClick={() =>
-                                                        deleteUser(user.Id)
-                                                    }
-                                                    className="delete-btn"
-                                                >
-                                                    Delete
-                                                </button>
-
-                                            </td>
-
-                                            <td>{user.Role}</td>
-
-                                        </tr>
-                                    ))}
-
-                                </tbody>
-
-                            </table>
-
-                        </>
-                    )}
-
-                </div>
-
             </div>
 
-            <Footer />
+            <AdminFooter />
         </>
     )
 }

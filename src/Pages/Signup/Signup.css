@@ -51,10 +51,12 @@
 .signup-form input {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid rgba(204, 204, 204, 0.4);
+  border: 1px solid #d1d5db;
   outline: none;
   border-radius: 10px;
   font-size: 1rem;
+  background-color: #fff;
+  color: #111827;
 }
 
 .signup-form input:focus {
@@ -83,10 +85,12 @@
 .select-option {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid rgba(204, 204, 204, 0.4);
+  border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
+  background-color: #fff;
+  color: #111827;
 }
 
 .select-option:focus {

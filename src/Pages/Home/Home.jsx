@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Home.css'
 import Navbar from '../../Component/Navbar/Navbar'
-import Footer from '../../Component/Footer/Footer'
+import AdminFooter from '../../Component/Footer/AdminFooter'
 
 export default function Home() {
 
@@ -299,7 +299,7 @@ export default function Home() {
       </section>
 
     </div>
-    <Footer />
+    <AdminFooter />
     </>
   )
 }

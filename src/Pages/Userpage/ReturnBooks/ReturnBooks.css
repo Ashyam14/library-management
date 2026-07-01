@@ -10,6 +10,14 @@
     box-sizing: border-box;
 }
 
+@media (max-width: 1024px) {
+    .return-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 16px 30px;
+    }
+}
+
 .return-card {
     width: min(980px, 100%);
     background: #111827;
@@ -193,5 +201,148 @@
         width: 100%;
         padding: 24px;
         border-radius: 20px;
+    }
+}
+
+/* ================= Large Desktop ================= */
+@media (min-width: 1440px) {
+    .return-card {
+        max-width: 1100px;
+    }
+}
+
+/* ================= Laptop ================= */
+@media (max-width: 1200px) {
+    .return-container {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        padding: 70px 20px 30px;
+    }
+
+    .return-card {
+        padding: 30px;
+    }
+}
+
+/* ================= Tablet ================= */
+@media (max-width: 992px) {
+
+    .return-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 20px 30px;
+    }
+
+    .return-card {
+        width: 100%;
+        padding: 25px;
+    }
+
+    .return-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .fine-pay-section {
+        grid-template-columns: 1fr;
+    }
+
+    .borrowed-preview {
+        overflow-x: auto;
+    }
+
+    .borrowed-preview table {
+        min-width: 700px;
+    }
+}
+
+/* ================= Mobile ================= */
+@media (max-width: 768px) {
+
+    .return-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 100px 15px 25px;
+    }
+
+    .return-card {
+        width: 100%;
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .return-card h1 {
+        font-size: 26px;
+        text-align: center;
+    }
+
+    .return-description {
+        font-size: 14px;
+    }
+
+    .return-fields {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .fine-card {
+        padding: 18px;
+    }
+
+    .fine-pay-section {
+        grid-template-columns: 1fr;
+    }
+
+    .fine-pay-section input,
+    .pay-fine-btn,
+    .return-btn {
+        width: 100%;
+    }
+
+    .borrowed-preview {
+        overflow-x: auto;
+    }
+
+    .borrowed-preview table {
+        min-width: 650px;
+    }
+
+    .borrowed-preview th,
+    .borrowed-preview td {
+        white-space: nowrap;
+    }
+}
+
+/* ================= Small Mobile ================= */
+@media (max-width: 480px) {
+
+    .return-container {
+        padding: 90px 10px 20px;
+    }
+
+    .return-card {
+        padding: 16px;
+    }
+
+    .return-card h1 {
+        font-size: 22px;
+    }
+
+    .return-description {
+        font-size: 13px;
+    }
+
+    .fine-value {
+        font-size: 18px;
+    }
+
+    .pay-fine-btn,
+    .return-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .return-fields input,
+    .fine-pay-section input {
+        font-size: 14px;
     }
 }

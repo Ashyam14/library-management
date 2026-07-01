@@ -1,16 +1,20 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+/* ================= NAVBAR ================= */
+
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000;
+    background: #000;
     position: sticky;
-    top: 0; 
+    top: 0;
     z-index: 1000;
+    padding: 0 20px;
 }
 
 .nav-logo {
@@ -22,53 +26,96 @@ nav {
 
 img {
     height: 100px;
+    width: auto;
 }
 
 .title-container {
+    flex: 1;
+    text-align: center;
     color: #e5e4e4;
     font-size: 18px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-decoration: none;
-    padding-right: 414px;
+    padding: 0 20px;
 }
 
+.title-container h1 {
+    font-size: 30px;
+    margin: 0;
+}
 
-@media screen and (max-width: 992px){
+/* ================= Laptop ================= */
 
-    .nav-container{
-        padding: 15px 40px;
+@media (max-width:1200px) {
+
+    img {
+        height: 85px;
     }
 
-    .logo{
-        height: 65px;
-    }
-
-    .title-container h1{
-        font-size: 24px;
+    .title-container h1 {
+        font-size: 26px;
     }
 }
 
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
+/* ================= Tablet ================= */
 
-@media screen and (max-width: 768px){
+@media (max-width:992px) {
 
-    .nav-container{
+    nav {
+        padding: 0 15px;
+    }
+
+    img {
+        height: 70px;
+    }
+
+    .title-container {
+        padding: 0 10px;
+    }
+
+    .title-container h1 {
+        font-size: 22px;
+    }
+}
+
+/* ================= Mobile ================= */
+
+@media (max-width:768px) {
+
+    nav {
         flex-direction: column;
-
-        gap: 15px;
-
-        padding: 20px;
+        padding: 12px;
+        gap: 10px;
     }
 
-    .logo{
-        height: 55px;
-        }
+    img {
+        height: 60px;
+    }
 
-    .title-container h1{
+    .title-container {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    .title-container h1 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+}
+
+/* ================= Small Mobile ================= */
+
+@media (max-width:480px) {
+
+    img {
+        height: 50px;
+    }
+
+    .title-container h1 {
+        font-size: 16px;
+    }
+
+    .nav-logo {
         font-size: 20px;
-
-        line-height: 30px;
     }
 }

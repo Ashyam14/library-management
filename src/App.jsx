@@ -10,48 +10,60 @@ import Home from './Pages/Home/Home'
 import Login from './Pages/Login/Login'
 import UserHome from './Pages/Userpage/Home/Userhome'
 import Adminhome from './Pages/Adminpage/Home/Adminhome'
-import Mydashboard from './Pages/Userpage/Mydashboard/Mydashboard'
 import Books from './Pages/Userpage/Books/Books'
 import BorrowedBooks from './Pages/Userpage/BorrowedBooks/BorrowedBooks'
 import ReturnBooks from './Pages/Userpage/ReturnBooks/ReturnBooks'
 import Signup from './Pages/Signup/Signup'  
+import TotalQuantity from './Pages/Adminpage/TotalQuantity/TotalQuantity'
+import UniqueBooks from './Pages/Adminpage/UniqueBooks/UniqueBooks'
+import BorrowedBooksAdmin from './Pages/Adminpage/BorrowedBooks/BorrowedBooksAdmin'
+import AvailableBooksAdmin from './Pages/Adminpage/AvailableBooks/AvailableBooksAdmin'
+import AdminUsers from './Pages/Adminpage/Users/AdminUsers'
+import MyDashboard from './Pages/Userpage/MyDashboard/MyDashboard'
+import BookDetails from './Pages/Userpage/Books/Bookdetails'
 
 function App() {
   const [count, setCount] = useState(0)
   const [username, setUsername] = useState('')
-
   return (
     <>
      <BrowserRouter>
 
       <Routes>
 
+        {/* Home Page */}
         <Route
           path="/"
           element={<Home />}
         />
 
-       
+        {/* Login Page */}
         <Route
           path="/login"
           element={<Login setUsername = {setUsername}/>}
         />
 
-       
+        {/* User Home Page */}
         <Route
           path="/user-home"
           element={<UserHome username={username} />}
         />
 
+        {/* Admin Home Page */}
         <Route
-          path="/mydashboard"
-          element={<Mydashboard />}
+          path="/admin-home"
+          element={<Adminhome />}
         />
 
-       
+        {/* User View books page */}
         <Route 
           path="/books"
           element={<Books/>}
+        />
+        {/* User dashboard */}
+        <Route
+          path="/mydashboard"
+          element={<MyDashboard  />} 
         />
         <Route
           path="/borrowed"
@@ -61,16 +73,45 @@ function App() {
           path="/return-books"
           element={<ReturnBooks />}
         />
-
+        {/* Signup Page */}
         <Route 
           path="/signup"
           element={<Signup/>}
         />
 
         <Route
-          path="/admin-home"
-          element={<Adminhome />}
+          path="/admin/total-quantity"
+          element={<TotalQuantity />}
         />
+
+        <Route
+          path="/admin/unique-books"
+          element={<UniqueBooks />}
+        />
+
+        <Route
+          path="/admin/total-quantity"
+          element={<TotalQuantity />}
+        />
+
+        <Route
+          path="/admin/borrowed-books"
+          element={<BorrowedBooksAdmin />}
+        />
+
+        <Route
+          path="/admin/available-books"
+          element={<AvailableBooksAdmin />}
+        />
+
+        <Route
+          path="/admin/users"
+          element={<AdminUsers />}
+        />
+       <Route
+          path="/view-books/:id"
+          element={<BookDetails />}
+      />
 
       </Routes>
     </BrowserRouter>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import './Signup.css'
 import API from '../../Api/api'
 import Navbar from '../../Component/Navbar/Navbar'
-import Footer from '../../Component/Footer/Footer'
+import AdminFooter from '../../Component/Footer/AdminFooter'  
 import LoginBackground from '../../assets/loginbackground.jpg'
 
 
@@ -174,7 +174,7 @@ export default function Signup() {
       )}
 
     </div>
-    <Footer />
+    <AdminFooter />
     </>
   )
 

@@ -49,30 +49,46 @@ export default function Mydashboard() {
             userId
           })
         }
-const borrowResponse = await API.get(`/borrow_getbyID/${encodeURIComponent(userId)}`);
-const borrowList = Array.isArray(borrowResponse.data) ? borrowResponse.data : [];
 
-const activeBorrowed = borrowList.reduce(
-  (sum, item) => sum + ((item.Status === 'Active' ? Number(item.Quantity) : 0) || 0),
-  0
-);
+        let borrowList = []
+        try {
+          const borrowResponse = await API.get(`/borrow_getbyID/${encodeURIComponent(userId)}`)
+          borrowList = Array.isArray(borrowResponse.data) ? borrowResponse.data : []
+        } catch (borrowError) {
+          if (!borrowError.response || borrowError.response.status !== 404) {
+            throw borrowError
+          }
+          borrowList = []
+        }
 
-const returnedResponse = await API.get(`/return_getbyID/${encodeURIComponent(userId)}`);
-const returnList = Array.isArray(returnedResponse.data) ? returnedResponse.data : [];
+        let returnList = []
+        try {
+          const returnedResponse = await API.get(`/return_getbyID/${encodeURIComponent(userId)}`)
+          returnList = Array.isArray(returnedResponse.data) ? returnedResponse.data : []
+        } catch (returnError) {
+          if (!returnError.response || returnError.response.status !== 404) {
+            throw returnError
+          }
+          returnList = []
+        }
 
-const totalReturned = returnList.reduce(
-  (sum, item) => sum + (Number(item.Quantity) || 0),
-  0
-);
+        const activeBorrowed = borrowList.reduce(
+          (sum, item) => sum + ((item.Status === 'Active' ? Number(item.Quantity) : 0) || 0),
+          0
+        )
 
-// Total Borrowed History = Active + Returned
-const totalBorrowed = activeBorrowed + totalReturned;
+        const totalReturned = returnList.reduce(
+          (sum, item) => sum + (Number(item.Quantity) || 0),
+          0
+        )
 
-setStats({
-  totalBorrowed,
-  activeBorrowed,
-  totalReturned
-});
+        const totalBorrowed = activeBorrowed + totalReturned
+
+        setStats({
+          totalBorrowed,
+          activeBorrowed,
+          totalReturned
+        })
       } catch (err) {
         console.error('Dashboard load error:', err)
         setError('Unable to load dashboard data. Please try again later.')
