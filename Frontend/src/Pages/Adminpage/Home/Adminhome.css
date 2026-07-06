@@ -390,8 +390,99 @@ input {
     text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    .admin-home-container {
+        padding: 24px;
+    }
+
     .dashboard-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-home-container {
+        padding: 16px;
+    }
+
+    .admin-top-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .admin-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .admin-welcome {
+        font-size: 24px;
+    }
+
+    .admin-logout-btn {
+        width: 100%;
+    }
+
+    .add-book-section {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .quantity-controls {
+        justify-content: center;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .dashboard-card {
+        padding: 22px;
+    }
+
+    .dashboard-card p {
+        font-size: 28px;
+    }
+
+    .section-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table-pagination {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-home-container {
+        padding: 12px;
+    }
+
+    .admin-top-section {
+        padding: 16px;
+        margin-bottom: 24px;
+    }
+
+    .admin-welcome {
+        font-size: 20px;
+    }
+
+    .admin-subtitle {
+        font-size: 14px;
+    }
+
+    .add-book-section button,
+    .back-to-dashboard-btn,
+    .pagination-btn {
+        width: 100%;
+    }
+
+    .add-book-section input,
+    .add-book-section textarea {
+        font-size: 14px;
     }
 }

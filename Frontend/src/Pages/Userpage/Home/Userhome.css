@@ -14,6 +14,10 @@ nav {
     z-index: 1000;
 }
 
+.nav-container {
+    position: sticky;
+}
+
 .nav-logo {
     color: #fff;
     font-size: 24px;
@@ -714,5 +718,40 @@ img {
 
     .dropdown-menu{
         min-width:220px;
+    }
+}
+
+@media (max-width: 640px) {
+    .userhome-container {
+        min-height: auto;
+    }
+
+    .home-image {
+        height: 78vh;
+        min-height: 420px;
+    }
+
+    .overlay {
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .overlay-content {
+        padding-top: 48px;
+        gap: 16px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form {
+        gap: 8px;
+    }
+
+    .search-bar,
+    .search-btn {
+        padding: 11px 16px;
     }
 }

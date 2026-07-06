@@ -391,8 +391,38 @@ body {
 
 /* RESPONSIVE */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+  }
 
+  .overlay {
+    padding: 24px 40px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding: 40px 0;
+  }
+
+  .hero-content h1 {
+    font-size: 56px;
+  }
+
+  .hero-content p {
+    font-size: 24px;
+  }
+
+  .books-section,
+  .about-section,
+  .contact-section,
+  .authors-section {
+    padding: 70px 35px;
+  }
+}
+
+@media (max-width: 768px) {
   .overlay {
     padding: 20px;
   }
@@ -400,23 +430,109 @@ body {
   .overlay-links {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 14px 20px;
+  }
+
+  .overlay-links a {
+    font-size: 16px;
+  }
+
+  .hero-content {
+    padding: 24px 0;
   }
 
   .hero-content h1 {
-    font-size: 50px;
+    font-size: 42px;
   }
 
   .hero-content p {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .login-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .login-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .books-section,
+  .about-section,
+  .contact-section,
+  .authors-section {
+    padding: 60px 20px;
+  }
+
+  .books-section h2,
+  .about-section h2,
+  .contact-section h2,
+  .authors-section h2 {
+    font-size: 32px;
+  }
+
+  .book-card,
+  .author-card {
+    width: min(100%, 320px);
   }
 
   .contact-form {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form button {
+    font-size: 15px;
   }
 
   .modal {
     width: 90%;
   }
-} 
+}
+
+@media (max-width: 480px) {
+  .overlay {
+    padding: 16px;
+  }
+
+  .overlay-links {
+    gap: 10px 14px;
+  }
+
+  .overlay-links a {
+    font-size: 14px;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .books-section,
+  .about-section,
+  .contact-section,
+  .authors-section {
+    padding: 50px 16px;
+  }
+
+  .books-section h2,
+  .about-section h2,
+  .contact-section h2,
+  .authors-section h2 {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .book-card img,
+  .author-card img {
+    height: 220px;
+  }
+}
 
